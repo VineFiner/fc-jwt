@@ -4,11 +4,6 @@
 docker build --target build -t vapor_app_ubuntu -f ./Dockerfile ./
 
 # 复制构建产物
-#docker create --name extract vapor_app_ubuntu
-#docker cp extract:/app pkg
-#chmod -R 777 pkg
-#docker rm -f extract
-
 docker run --rm  \
 -w /workspace \
 -v $(pwd):/workspace \
@@ -27,4 +22,6 @@ cat > ./pkg/scf_bootstrap<<EOF
 EOF
 
 # 打包 资源目录 `./app`, 资源子目录 `./`
-tar cvzf vapor_app-ubuntu.zip -C ./pkg .
+# tar cvzf vapor_app-ubuntu.zip -C ./pkg .
+
+cd pkg && tar cvzf vapor_app-ubuntu.zip *
