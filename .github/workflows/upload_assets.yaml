@@ -25,4 +25,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            vapor_app-ubuntu.zip
+            pkg/vapor_app-ubuntu.zip
