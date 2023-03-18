@@ -1,0 +1,28 @@
+name: upload assets
+
+on: 
+  push:
+    tags:
+      - "v*.*.*"
+  
+  # 允许您从“操作”选项卡手动运行此工作流程
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: 构建压缩包
+        run: |
+          bash ./scripts/build_ubuntu_focal.sh
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            vapor_app-ubuntu.zip
